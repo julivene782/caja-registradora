@@ -8,7 +8,7 @@ Console.WriteLine($"Bienvenido, {user}. La Caja esta abierta.");
 Console.ReadLine();
 
 //etapa 2 
-Console.WriteLine("Ingrese el nombre del prodocuto: ");
+Console.WriteLine("Ingrese el nombre del producto: ");
 string product = Console.ReadLine();
 Console.WriteLine("Ingrese el precio del producto: ");
 decimal price = decimal.Parse(Console.ReadLine());  
@@ -17,6 +17,9 @@ Console.WriteLine($"Producto cargado: {product} - Precio: ${price}");
 Console.ReadLine();
 
 //etapa 3 
+const decimal DescuentoDiez = 0.10m;
+const decimal DescuentoCinco = 0.05m;
+
 decimal total = 0;
 int cantidadProductos = 0;
 int opcion;
@@ -46,8 +49,28 @@ do
             break;
 
         case 2:
+            decimal descuento = 0;
+
+            if (total > 50000)
+            {
+                descuento = total * DescuentoDiez;
+            }
+            else if (total > 20000)
+            {
+                descuento = total * DescuentoCinco;
+            }
+            else
+            {
+                descuento = 0;
+            }
+
+            decimal totalConDescuento = total - descuento;
+
             Console.WriteLine($"Cantidad de productos: {cantidadProductos}");
-            Console.WriteLine($"Total de la venta: ${total}");
+            Console.WriteLine($"Subtotal: ${total}");
+            Console.WriteLine($"Descuento aplicado: ${descuento}");
+            Console.WriteLine($"Total con descuento: ${totalConDescuento}");
+
             break;
 
         default:
@@ -57,6 +80,7 @@ do
 
 }
 while (opcion != 2);
+
 
 
 
