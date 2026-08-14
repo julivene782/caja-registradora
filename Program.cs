@@ -16,12 +16,15 @@ decimal price = decimal.Parse(Console.ReadLine());
 Console.WriteLine($"Producto cargado: {product} - Precio: ${price}");
 Console.ReadLine();
 
-//etapa 3 - 4 - 5 
+//etapa 3 - 4 - 5 - 6 
 
 const decimal DescuentoDiez = 0.10m;
 const decimal DescuentoCinco = 0.05m;
 const decimal DescuentoEfectivo = 0.10m;
 const decimal RecargoCredito = 0.15m;
+
+Console.Write("Ingrese el nombre del cajero: ");
+string cajero = Console.ReadLine();
 
 decimal total = 0;
 int cantidadProductos = 0;
@@ -52,6 +55,7 @@ do
             break;
 
         case 2:
+            //estapa 4 - desc por el monto
             decimal descuento = 0;
 
             if (total > 50000)
@@ -68,13 +72,16 @@ do
             }
 
             decimal totalConDescuento = total - descuento;
-
+            
             Console.WriteLine($"Cantidad de productos: {cantidadProductos}");
             Console.WriteLine($"Subtotal: ${total}");
             Console.WriteLine($"Descuento aplicado: ${descuento}");
             Console.WriteLine($"Total con descuento: ${totalConDescuento}");
             
+            // etapa 5 - medio de pago 
             int medioPago;
+            decimal descuentoMedioPago = 0;
+            decimal recargo = 0;
             decimal totalFinal = totalConDescuento;
 
             do
@@ -89,7 +96,8 @@ do
                 switch (medioPago)
                 {
                     case 1:
-                        totalFinal = totalConDescuento - (totalConDescuento * DescuentoEfectivo);
+                        descuentoMedioPago = totalConDescuento * DescuentoEfectivo;
+                        totalFinal = totalConDescuento - descuentoMedioPago;
                         break;
 
                     case 2:
@@ -97,7 +105,8 @@ do
                         break;
 
                     case 3:
-                        totalFinal = totalConDescuento + (totalConDescuento * RecargoCredito);
+                        recargo = totalConDescuento * RecargoCredito;
+                        totalFinal = totalConDescuento + recargo;
                         break;
 
                     default:
@@ -107,8 +116,27 @@ do
 
             }
             while (medioPago < 1 || medioPago > 3);
+            
+            //Etapa 6 - ticket final
+            decimal descuentoTotal = descuento + descuentoMedioPago;
 
-            Console.WriteLine($"Total final: ${totalFinal}");
+            MostrarLinea();
+
+            Console.WriteLine("KIOSCO EL RECREO");
+
+            MostrarLinea();
+
+            Console.WriteLine($"Cajero: {cajero}");
+            Console.WriteLine($"Productos: {cantidadProductos}");
+            Console.WriteLine($"Subtotal: ${total}");
+            Console.WriteLine($"Descuento: ${descuentoTotal}");
+            Console.WriteLine($"Recargo: ${recargo}");
+
+            MostrarLinea();
+
+            Console.WriteLine($"TOTAL: ${totalFinal}");
+
+            MostrarLinea();
 
             break;
 
@@ -119,8 +147,16 @@ do
 
 }
 while (opcion != 2);
+// Generar las líneas del ticket con un for
+void MostrarLinea()
+{
+    for (int i = 0; i < 28; i++)
+    {
+        Console.Write("-");
+    }
 
-
+    Console.WriteLine();
+}
 
 
 
